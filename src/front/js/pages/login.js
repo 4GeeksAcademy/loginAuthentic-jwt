@@ -33,8 +33,7 @@ export const Login = () => {
             <h2>Login</h2>
             {
                 (store.token && store.token != "" && store.token != undefined) ?
-
-                    <p className="pt-2 my-4 text-center fs-2"> You are already logged in </p>
+                navigate("/private")
                     :
                     <div>
                         <div className="row d-flex mt-5 justify-content-center">
@@ -57,6 +56,7 @@ export const Login = () => {
                         </div>
 
                         <div className="input-group mt-3">
+
                         <button type="submit" className="btn-success"> Login </button>
                             
                         </div>
