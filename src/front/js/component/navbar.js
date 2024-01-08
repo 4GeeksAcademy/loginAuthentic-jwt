@@ -33,6 +33,10 @@ export const Navbar = () => {
 				<Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
+
+				<Link to="/private">
+					<span className="nav-link btn-primary text-white">Private</span>
+				</Link>
 				
 				{!store.token ?
 				<>

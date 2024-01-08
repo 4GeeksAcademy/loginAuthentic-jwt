@@ -21,7 +21,7 @@ export const Login = () => {
         loginResult.then(result => {
             console.log(result)
             if (result === true) {
-                navigate("/")
+                navigate("/private")
             }
             
         })

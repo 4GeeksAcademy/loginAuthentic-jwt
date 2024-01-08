@@ -59,3 +59,9 @@ def get_hello():
     email = get_jwt_identity()
     dictionary = {"message": "hello world" + email}
     return jsonify(dictionary)
+
+@api.route("/private", methods=["GET"])
+@jwt_required()
+def get_validate():
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
