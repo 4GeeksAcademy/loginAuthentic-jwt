@@ -44,13 +44,13 @@ export const Navbar = () => {
 
 							<li className="nav-item">
 							<Link to="/signup">
-								<button className="nav-link btn-primary" aria-current="page">Sign Up</button>
+								<button className="nav-link btn-primary text-white" aria-current="page">Sign Up</button>
 							</Link>
 							</li>
 
 							<li className="nav-item">
 							<Link to="/login">
-								<button className="nav-link btn-primary" href="/login">Log In</button>
+								<button className="nav-link btn-primary text-white" href="/login">Log In</button>
 							</Link>
 							</li>
 						</ul>
