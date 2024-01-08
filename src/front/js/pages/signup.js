@@ -30,14 +30,23 @@ export const Signup = () => {
 
 
     return (
-        <form className="info-wrapper signup-wrapper container w-50 mt-2 py-auto py-5 d-flex flex-column was-validated" onSubmit={handleSubmit}>
-            <h2 className="text-white">Signup</h2>
+        <form className="text-center container w-50 d-flex" onSubmit={handleSubmit}>
+            <h2>Signup</h2>
             <div className="row d-flex mt-5 justify-content-center">
                 <div className="form-group col-12">
                     <div className="input-group">
 
-                        <input type="text" name="name" required value={signName}
-                            onChange={(e) => setSignName(e.target.value)} className="form-control p-2 border-4">
+                        <input type="text" placeholder="name" required value={signName}
+                            onChange={(e) => setSignName(e.target.value)}>
+                        </input>
+
+                    </div>
+
+                    <div className="input-group mt-3">
+
+                        <input
+                            type="email" placeholder="email" required value={signEmail}
+                            onChange={(e) => setSignEmail(e.target.value)}>
                         </input>
 
 
@@ -46,21 +55,13 @@ export const Signup = () => {
                     <div className="input-group mt-3">
 
                         <input
-                            type="email" name="email" required value={signEmail}
-                            onChange={(e) => setSignEmail(e.target.value)} className="form-control p-2 border-4">
+                            type="password" placeholder="password" required value={signPassword}
+                            onChange={(e) => setSignPassword(e.target.value)}>
                         </input>
-
-
+                        
                     </div>
-
                     <div className="input-group mt-3">
-
-                        <input
-                            type="password" name="password" required value={signPassword}
-                            onChange={(e) => setSignPassword(e.target.value)} className="form-control p-2 border-4">
-                        </input>
-
-
+                    <button type="submit" className="btn-success">Sign Up</button>
                     </div>
                 </div>
             </div>

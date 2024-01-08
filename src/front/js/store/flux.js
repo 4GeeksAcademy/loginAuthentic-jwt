@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			token:null,
+			token: null,
 			message: null,
 			demo: [
 				{
@@ -21,8 +21,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			
-			refreshStore: () => {
+
+			tokenStore: () => {
 				if (!getStore().token && sessionStorage.getItem("token")) {
 					const token = sessionStorage.getItem("token");
 
@@ -31,34 +31,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ token: token });
 					}
 				}
-				if (!getStore().user && sessionStorage.getItem("user")) {
-					const user = sessionStorage.getItem("user");
-					if (user !== "undefined" && user !== null) {
-						console.log(user)
-						setStore({ user: JSON.parse(user) });
-					}
-				}
+
 			},
 
-			logout: () =>{
+			logout: () => {
 				sessionStorage.removeItem("token");
 				console.log("Login out");
-				setStore({token:null});
-			}, 
+				setStore({ token: null });
+			},
 
 			login: async (email, password) => {
 				const opts = {
 					method: "POST",
+
 					headers: {
 						"Content-Type": "application/json"
 					},
+
 					body: JSON.stringify(
 						{
 							"email": email,
 							"password": password
-						})
+						}
+					)
 				}
-
+				console.log(opts)
+				console.log(password)
 				return fetch(process.env.BACKEND_URL + "api/token", opts)
 
 					.then(resp => {
@@ -67,11 +65,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.then(data => {
 						if (data) {
-							console.log("this came from the backend", data)
 							sessionStorage.setItem("token", data.access_token);
-							sessionStorage.setItem("user", JSON.stringify(data.user));
-							setStore({ token: data.access_token, user: data.user })
-							getActions().getUserDetails()
+							setStore({ token: data.access_token })
+							getActions()
 
 						}
 					})
@@ -115,7 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 			},
 
-			getMessage:  () => {
+			getMessage: () => {
 				const store = getStore();
 				const opts = {
 					headers: {
@@ -123,13 +119,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				};
 
-				
-					// fetching data from the backend
-					fetch ("https://upgraded-space-orbit-4j776j77qp7q2799p-3001.app.github.dev/api/hello", opts)
+
+				// fetching data from the backend
+				fetch("https://upgraded-space-orbit-4j776j77qp7q2799p-3001.app.github.dev/api/hello", opts)
 					.then(resp => resp.json())
-					.then(data =>setStore({message: data.message}))
+					.then(data => setStore({ message: data.message }))
 					.catch(error => console.log("Error loading message from backend", error));
-			
+
 			},
 			changeColor: (index, color) => {
 				//get the store

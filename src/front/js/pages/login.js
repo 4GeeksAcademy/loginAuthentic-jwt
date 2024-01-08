@@ -1,33 +1,67 @@
-import React, { useContext, useState } from "react";
+import React from "react";
+import { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 export const Login = () => {
-	const { store, actions } = useContext(Context);
-    const {email, setEmail} = useState("");
-    const {password, setPassword} = useState("");
-    const token = sessionStorage.getItem("token");
+    const { store, actions } = useContext(Context);
 
-    console.log("This is your token", store.token);
-    const handleClick = () => {
-        actions.login(email,password);
+    const [email, setEmail] = useState("");
+
+    const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const loginResult = actions.login(email, password)
+        loginResult.then(result => {
+            console.log(result)
+            if (result === true) {
+                navigate("/")
+            }
+            
+        })
     };
 
-  //  if(store.token && store.token !="" && store.token != undefined) history.push("/");
+    return (
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Login</h1>
-		     {store.token  && store.token!="" && store.token!=undefined ? (
-                 "You are logged on with this token" + store.token) : (
-        <div>
-            <input type= "text" placeholder= "email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type= "password" placeholder= "password" value={password} onChange={(e) => setPassword (e.target.value)} />
-            <button onClick={handleClick}>Login</button> 
-                          
-        </div>
-        )}
-		</div>
-	);
+        <form className="text-center container w-50 d-flex" onSubmit={handleSubmit}>
+            <h2>Login</h2>
+            {
+                (store.token && store.token != "" && store.token != undefined) ?
+
+                    <p className="pt-2 my-4 text-center fs-2"> You are already logged in </p>
+                    :
+                    <div>
+                        <div className="row d-flex mt-5 justify-content-center">
+                            <div className="form-group col-12">
+
+                                <div className="input-group mt-3">
+                                    
+                                    <input type="email" placeholder="Enter your email." required value={email}
+                                        onChange={(e) => setEmail(e.target.value)} />
+
+                                </div>
+
+                                <div className="input-group mt-3">
+                                    <input
+                                        type="password" placeholder="Enter your password." required value={password}
+                                        onChange={(e) => setPassword(e.target.value)} />
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="input-group mt-3">
+                        <button type="submit" className="btn-success"> Login </button>
+                            
+                        </div>
+                    </div>
+            }
+        </form>
+    );
 };

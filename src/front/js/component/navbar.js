@@ -17,7 +17,7 @@ export const Navbar = () => {
 
 	const handleLogout = (event) => {
 		actions.logout()
-		navigate("/")
+		navigate("/login")
 	}
 
 
@@ -33,29 +33,34 @@ export const Navbar = () => {
 				<Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
-				<div className="ml-auto">
-					{!store.token ? 
-					<>
-					<div className="collapse navbar-collapse" id="navbarNav">
+				
+				{!store.token ?
+				<>
 						<ul className="navbar-nav ms-md-auto gap-2 ">
 
-							<li className="nav-item rounded pe-3">
-								<a className="nav-link active" aria-current="page" href="/signup">Sign Up</a>
+							<li className="nav-item">
+							<Link to="/signup">
+								<button className="nav-link btn-primary" aria-current="page">Sign Up</button>
+							</Link>
 							</li>
 
-							<li className="nav-item rounded">
-								<a className="nav-link" href="/login">Log In</a>
+							<li className="nav-item">
+							<Link to="/login">
+								<button className="nav-link btn-primary" href="/login">Log In</button>
+							</Link>
 							</li>
 						</ul>
-					</div>
 				</>
-					 : 
-					 <>
-						<button onClick= {() => actions.logout()}className="btn btn-primary">Log out</button>
-					</>
-					}
+				:
+				<>
+							<li>
+								<button onClick={handleLogout} className="nav-link btn-danger">Log out</button>
+							</li>
+						
+				</>
+			}
 				</div>
-			</div>
+			
 		</nav>
 	);
 };
